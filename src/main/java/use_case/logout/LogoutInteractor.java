@@ -10,6 +10,8 @@ public class LogoutInteractor implements LogoutInputBoundary {
     public LogoutInteractor(LogoutUserDataAccessInterface userDataAccessInterface,
                             LogoutOutputBoundary logoutOutputBoundary) {
         // TODO: save the DAO and Presenter in the instance variables.
+        userDataAccessObject = userDataAccessInterface;
+        logoutPresenter = logoutOutputBoundary;
     }
 
     @Override
@@ -17,7 +19,10 @@ public class LogoutInteractor implements LogoutInputBoundary {
         // TODO: implement the logic of the Logout Use Case
         // * set the current username to null in the DAO
         // * instantiate the `LogoutOutputData`, which needs to contain the username.
+        LogoutOutputData outputData = new LogoutOutputData(userDataAccessObject.getCurrentUsername());
+        userDataAccessObject.setCurrentUsername(null);
         // * tell the presenter to prepare a success view.
+        logoutPresenter.prepareSuccessView(outputData);
     }
 }
 
